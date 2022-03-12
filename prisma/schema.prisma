@@ -20,8 +20,12 @@ model ProjectRole {
   id       String @id @default(uuid())
   name     String
   capacity Int
+  editable Boolean
 
   projectRoleAssignments ProjectRoleAssignment[]
+
+  project  Project @relation(fields: [projectId], references: [id])
+  projectId String
 }
 
 
@@ -29,7 +33,7 @@ model Project {
   id       String @id @default(uuid())
 
   projectParts ProjectPart[]
-  projectRoleAssigments ProjectRoleAssignment[]
+  projectRoles ProjectRole[]
 
   category Category @relation(fields: [categoryId], references: [id])
   categoryId String
@@ -42,9 +46,6 @@ model ProjectRoleAssignment {
 
   role     ProjectRole @relation(fields: [roleId], references: [id])
   roleId   String
-
-  project  Project @relation(fields: [projectId], references: [id])
-  projectId String
 }
 
 

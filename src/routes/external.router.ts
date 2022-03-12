@@ -5,6 +5,19 @@ import {
 	epCategoriesDelete,
 	epCategoriesGetAll,
 	epCategoriesUpdate,
+	epPartCreate,
+	epPartDelete,
+	epPartUpdate,
+	epProjectCreate,
+	epProjectDelete,
+	epProjectSearchBy,
+	epProjectSearchSelf,
+	epProjectUpdate,
+	epRoleCreate,
+	epRoleDelete,
+	epRoleUpdate,
+	epTeamJoin,
+	epTeamLeave,
 } from './external';
 import { mwAuthorization } from '../../src-ms';
 
@@ -14,3 +27,20 @@ externalRouter.post('/categories', mwAuthorization, epCategoriesCreate);
 externalRouter.get('/categories', mwAuthorization, epCategoriesGetAll);
 externalRouter.patch('/categories/:categoryId', mwAuthorization, epCategoriesUpdate);
 externalRouter.delete('/categories/:categoryId', mwAuthorization, epCategoriesDelete);
+
+externalRouter.post('/projects/:projectId/parts', mwAuthorization, epPartCreate);
+externalRouter.patch('/projects/:projectId/parts/:roleId', mwAuthorization, epPartUpdate);
+externalRouter.delete('/projects/:projectId/parts/:roleId', mwAuthorization, epPartDelete);
+
+externalRouter.post('/projects/:projectId/roles', mwAuthorization, epRoleCreate);
+externalRouter.patch('/projects/:projectId/roles/:roleId', mwAuthorization, epRoleUpdate);
+externalRouter.delete('/projects/:projectId/roles/:roleId', mwAuthorization, epRoleDelete);
+
+externalRouter.patch('/projects/:projectId/team', mwAuthorization, epTeamJoin);
+externalRouter.delete('/projects/:projectId/team', mwAuthorization, epTeamLeave);
+
+externalRouter.post('/projects', mwAuthorization, epProjectCreate);
+externalRouter.delete('/projects/:projectId', mwAuthorization, epProjectDelete);
+externalRouter.get('/projects', mwAuthorization, epProjectSearchBy);
+externalRouter.get('/projects/self', mwAuthorization, epProjectSearchSelf);
+externalRouter.patch('/projects/:projectId', mwAuthorization, epProjectUpdate);
