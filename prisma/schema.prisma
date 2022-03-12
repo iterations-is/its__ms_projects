@@ -31,6 +31,15 @@ model ProjectRole {
 
 model Project {
   id       String @id @default(uuid())
+  name    String
+  descriptionPrivate String
+  descriptionPublic String
+  archived Boolean
+  searchable Boolean
+  public Boolean
+  joinable Boolean
+  deleted Boolean
+  createdAt DateTime @default(now())
 
   projectParts ProjectPart[]
   projectRoles ProjectRole[]
