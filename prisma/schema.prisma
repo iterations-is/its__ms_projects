@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Category {
+  id       String @id @default(uuid())
+  name     String @unique
+
+  projects Project[]
+}
+
+
+model ProjectRole {
+  id       String @id @default(uuid())
+  name     String
+  capacity Int
+
+  projectRoleAssignments ProjectRoleAssignment[]
+}
+
+
+model Project {
+  id       String @id @default(uuid())
+
+  projectParts ProjectPart[]
+  projectRoleAssigments ProjectRoleAssignment[]
+
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+}
+
+
+model ProjectRoleAssignment {
+  id       String @id @default(uuid())
+  userId   String
+
+  role     ProjectRole @relation(fields: [roleId], references: [id])
+  roleId   String
+
+  project  Project @relation(fields: [projectId], references: [id])
+  projectId String
+}
+
+
+model ProjectPart {
+  id                 String @id @default(uuid())
+  interpreterName    String
+  interpreterVersion String
+  dataId             String
+  position           Int
+
+  project Project @relation(fields: [projectId], references: [id])
+  projectId  String
+}
