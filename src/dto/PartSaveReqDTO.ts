@@ -1,9 +1,15 @@
 import Joi from 'joi';
 
 export interface PartSaveReqDTO {
-	name: string;
+	sha?: string;
+	data: string;
+	interpreterName: string;
+	interpreterVersion: string;
 }
 
 export const PartSaveReqDTOSchema: Joi.ObjectSchema = Joi.object({
-	name: Joi.string().required(),
+	sha: Joi.string().optional(),
+	data: Joi.string().required(),
+	interpreterName: Joi.string().required(),
+	interpreterVersion: Joi.string().required(),
 });

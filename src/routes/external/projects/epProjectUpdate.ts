@@ -2,17 +2,39 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 
 import { ProjectUpdateReqDTO, ProjectUpdateReqDTOSchema } from '../../../dto';
+import { omit } from 'lodash';
 
 const prisma = new PrismaClient();
 
 export const epProjectUpdate = async (req: Request, res: Response) => {
 	// Validation
-	const categoryReq: ProjectUpdateReqDTO = req.body;
-	const { error } = ProjectUpdateReqDTOSchema.validate(categoryReq);
+	const projectUpdateReq: ProjectUpdateReqDTO = req.body;
+	const { error } = ProjectUpdateReqDTOSchema.validate(projectUpdateReq);
 	if (error) return res.status(400).json(error);
+
+	const projectId = req.params.projectId;
 
 	// Logic
 	try {
+		await prisma.project.update({
+			where: {
+				id: projectId,
+			},
+			data: {
+				...omit(projectUpdateReq, ['category']),
+
+				...(projectUpdateReq.category
+					? {
+							category: {
+								connect: {
+									id: projectUpdateReq.category,
+								},
+							},
+					  }
+					: {}),
+			},
+		});
+
 		return res.status(200).json({ message: '' });
 	} catch (error) {
 		return res.status(500).json({ message: 'internal server error', payload: error });

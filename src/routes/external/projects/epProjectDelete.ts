@@ -8,7 +8,16 @@ export const epProjectDelete = async (req: Request, res: Response) => {
 
 	// Logic
 	try {
-		return res.status(200).json({ message: '' });
+		await prisma.project.update({
+			where: {
+				id: projectId,
+			},
+			data: {
+				deleted: true,
+			},
+		});
+
+		return res.status(200).json({ message: 'project was deleted' });
 	} catch (error) {
 		return res.status(500).json({ message: 'internal server error', payload: error });
 	}

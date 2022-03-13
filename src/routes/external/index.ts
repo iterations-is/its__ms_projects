@@ -4,6 +4,7 @@ export * from './categories/epCategoriesUpdate';
 export * from './categories/epCategoriesDelete';
 
 export * from './projects/parts/epPartCreate';
+export * from './projects/parts/epPartGet';
 export * from './projects/parts/epPartDelete';
 export * from './projects/parts/epPartUpdate';
 

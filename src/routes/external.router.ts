@@ -7,6 +7,7 @@ import {
 	epCategoriesUpdate,
 	epPartCreate,
 	epPartDelete,
+	epPartGet,
 	epPartUpdate,
 	epProjectCreate,
 	epProjectDelete,
@@ -29,8 +30,9 @@ externalRouter.patch('/categories/:categoryId', mwAuthorization, epCategoriesUpd
 externalRouter.delete('/categories/:categoryId', mwAuthorization, epCategoriesDelete);
 
 externalRouter.post('/projects/:projectId/parts', mwAuthorization, epPartCreate);
-externalRouter.patch('/projects/:projectId/parts/:roleId', mwAuthorization, epPartUpdate);
-externalRouter.delete('/projects/:projectId/parts/:roleId', mwAuthorization, epPartDelete);
+externalRouter.get('/projects/:projectId/parts/:partId', mwAuthorization, epPartGet);
+externalRouter.patch('/projects/:projectId/parts/:partId', mwAuthorization, epPartUpdate);
+externalRouter.delete('/projects/:projectId/parts/:partId', mwAuthorization, epPartDelete);
 
 externalRouter.post('/projects/:projectId/roles', mwAuthorization, epRoleCreate);
 externalRouter.patch('/projects/:projectId/roles/:roleId', mwAuthorization, epRoleUpdate);
