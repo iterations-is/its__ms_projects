@@ -15,7 +15,15 @@ export const epRoleUpdate = async (req: Request, res: Response) => {
 
 	// Logic
 	try {
-		return res.status(200).json({ message: '' });
+		const role = await prisma.projectRole.update({
+			where: { id: roleId },
+			data: {
+				name: projectCreateReq.name,
+				capacity: projectCreateReq.capacity,
+			},
+		});
+
+		return res.status(200).json({ message: 'role was updated', payload: role });
 	} catch (error) {
 		return res.status(500).json({ message: 'internal server error', payload: error });
 	}

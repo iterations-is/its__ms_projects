@@ -38,7 +38,7 @@ externalRouter.post('/projects/:projectId/roles', mwAuthorization, epRoleCreate)
 externalRouter.patch('/projects/:projectId/roles/:roleId', mwAuthorization, epRoleUpdate);
 externalRouter.delete('/projects/:projectId/roles/:roleId', mwAuthorization, epRoleDelete);
 
-externalRouter.patch('/projects/:projectId/team', mwAuthorization, epTeamJoin);
+externalRouter.patch('/projects/:projectId/team/:roleId', mwAuthorization, epTeamJoin);
 externalRouter.delete('/projects/:projectId/team', mwAuthorization, epTeamLeave);
 
 externalRouter.post('/projects', mwAuthorization, epProjectCreate);

@@ -11,10 +11,26 @@ export const epRoleCreate = async (req: Request, res: Response) => {
 	const { error } = RoleCreateReqDTOSchema.validate(projectCreateReq);
 	if (error) return res.status(400).json(error);
 
+	const projectId = req.params.projectId;
+
 	// Logic
 	try {
-		return res.status(200).json({ message: '' });
+		const role = await prisma.projectRole.create({
+			data: {
+				name: projectCreateReq.name,
+				capacity: projectCreateReq.capacity,
+				editable: true,
+				project: {
+					connect: {
+						id: projectId,
+					},
+				},
+			},
+		});
+
+		return res.status(200).json({ message: 'role was created', payload: role });
 	} catch (error) {
+		// TODO: Handle error
 		return res.status(500).json({ message: 'internal server error', payload: error });
 	}
 };
