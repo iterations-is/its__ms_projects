@@ -22,7 +22,7 @@ export const epTeamLeave = async (req: Request, res: Response) => {
 		await prisma.projectRoleAssignment.deleteMany({
 			where: {
 				userId: userId,
-				OR: roles.map((role) => ({ roleId: role.id })),
+				OR: roles.map((role: any) => ({ roleId: role.id })),
 			},
 		});
 
