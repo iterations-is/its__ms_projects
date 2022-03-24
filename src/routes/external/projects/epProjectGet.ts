@@ -3,25 +3,14 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-/**
- * Requires mwAuthorization
- */
-export const epProjectSearchSelf = async (req: Request, res: Response) => {
-	const userId = res.locals.userId;
+export const epProjectGet = async (req: Request, res: Response) => {
+	const projectId = req.params.projectId;
 
 	// Logic
 	try {
-		const projects = await prisma.project.findMany({
+		const project = await prisma.project.findUnique({
 			where: {
-				projectRoles: {
-					some: {
-						projectRoleAssignments: {
-							some: {
-								userId,
-							},
-						},
-					},
-				},
+				id: projectId,
 			},
 			select: {
 				id: true,
@@ -63,10 +52,7 @@ export const epProjectSearchSelf = async (req: Request, res: Response) => {
 			},
 		});
 
-		return res.status(200).json({
-			message: 'user projects',
-			payload: projects,
-		});
+		return res.status(200).json({ message: 'project', payload: project });
 	} catch (error) {
 		return res.status(500).json({ message: 'internal server error', payload: error });
 	}

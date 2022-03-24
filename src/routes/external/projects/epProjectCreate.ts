@@ -12,11 +12,14 @@ export const epProjectCreate = async (req: Request, res: Response) => {
 	const { error } = ProjectCreateReqDTOSchema.validate(projectCreateReq);
 	if (error) return res.status(400).json(error);
 
+	const userId = res.locals.userId;
+
 	// Logic
 	try {
 		const project = await prisma.project.create({
 			data: {
 				...projectCreateReq,
+				deleted: false,
 				category: {
 					connect: {
 						id: projectCreateReq.category,
@@ -34,18 +37,29 @@ export const epProjectCreate = async (req: Request, res: Response) => {
 					editable: false,
 				},
 				{
-					name: 'Member',
-					projectId: project.id,
-					capacity: -1,
-					editable: false,
-				},
-				{
 					name: 'Visitor',
 					projectId: project.id,
 					capacity: -1,
 					editable: false,
 				},
 			],
+		});
+
+		const leaderRole = await prisma.projectRole.findFirst({
+			where: {
+				name: 'Leader',
+				projectId: project.id,
+			},
+			select: {
+				id: true,
+			},
+		});
+
+		await prisma.projectRoleAssignment.create({
+			data: {
+				roleId: leaderRole.id,
+				userId: userId,
+			},
 		});
 
 		const detailsRepo = await axios.post(

@@ -8,7 +8,6 @@ export interface ProjectCreateReqDTO {
 	searchable: boolean;
 	public: boolean;
 	joinable: boolean;
-	deleted: boolean;
 	category: string;
 }
 
@@ -20,6 +19,5 @@ export const ProjectCreateReqDTOSchema: Joi.ObjectSchema = Joi.object({
 	searchable: Joi.boolean().required(),
 	public: Joi.boolean().required(),
 	joinable: Joi.boolean().required(),
-	deleted: Joi.boolean().required(),
 	category: Joi.string().required(),
 });

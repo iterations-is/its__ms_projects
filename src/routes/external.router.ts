@@ -11,6 +11,7 @@ import {
 	epPartUpdate,
 	epProjectCreate,
 	epProjectDelete,
+	epProjectGet,
 	epProjectSearchBy,
 	epProjectSearchSelf,
 	epProjectUpdate,
@@ -42,7 +43,8 @@ externalRouter.patch('/projects/:projectId/team/:roleId', mwAuthorization, epTea
 externalRouter.delete('/projects/:projectId/team', mwAuthorization, epTeamLeave);
 
 externalRouter.post('/projects', mwAuthorization, epProjectCreate);
+externalRouter.get('/projects/self', mwAuthorization, epProjectSearchSelf);
+externalRouter.get('/projects/:projectId', mwAuthorization, epProjectGet);
 externalRouter.delete('/projects/:projectId', mwAuthorization, epProjectDelete);
 externalRouter.get('/projects', mwAuthorization, epProjectSearchBy);
-externalRouter.get('/projects/self', mwAuthorization, epProjectSearchSelf);
 externalRouter.patch('/projects/:projectId', mwAuthorization, epProjectUpdate);

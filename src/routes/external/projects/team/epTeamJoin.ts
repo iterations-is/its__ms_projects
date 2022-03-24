@@ -23,6 +23,8 @@ export const epTeamJoin = async (req: Request, res: Response) => {
 			where: { id: roleId },
 		});
 
+		if (!role) return res.status(404).json({ error: 'Role not found' });
+
 		const capacity = await prisma.projectRoleAssignment.count({
 			where: { roleId },
 		});

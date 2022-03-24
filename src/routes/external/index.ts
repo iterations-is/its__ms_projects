@@ -16,6 +16,7 @@ export * from './projects/team/epTeamJoin';
 export * from './projects/team/epTeamLeave';
 
 export * from './projects/epProjectCreate';
+export * from './projects/epProjectGet';
 export * from './projects/epProjectDelete';
 export * from './projects/epProjectSearchBy';
 export * from './projects/epProjectSearchSelf';
