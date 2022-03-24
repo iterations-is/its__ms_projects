@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const epPartGet = async (req: Request, res: Response) => {
 	const projectId = req.params.projectId;
@@ -7,6 +10,12 @@ export const epPartGet = async (req: Request, res: Response) => {
 
 	// Logic
 	try {
+		const part = await prisma.projectPart.findUnique({
+			where: {
+				id: partId,
+			},
+		});
+
 		const response = await axios.get(
 			`https://api.github.com/repos/iterations-is-projects/${projectId}/contents/${partId}`,
 			{
@@ -28,6 +37,7 @@ export const epPartGet = async (req: Request, res: Response) => {
 				name,
 				sha,
 				decodedContent,
+				meta: part,
 			},
 		});
 	} catch (error) {
