@@ -21,7 +21,7 @@ import {
 	epTeamJoin,
 	epTeamLeave,
 } from './external';
-import { mwAuthorization } from '../../src-ms';
+import { mwAuthorization } from '@its/ms';
 
 export const externalRouter = Router();
 
