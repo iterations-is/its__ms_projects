@@ -8,7 +8,11 @@ const prisma = new PrismaClient();
  */
 export const epCategoriesGetAll = async (req: Request, res: Response) => {
 	try {
-		const categories = await prisma.category.findMany();
+		const categories = await prisma.category.findMany({
+			orderBy: {
+				name: 'asc',
+			},
+		});
 
 		return res.status(200).json({ message: 'categories', payload: categories });
 	} catch (error) {
