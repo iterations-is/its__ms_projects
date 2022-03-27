@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import { MessageDTO } from '@its/ms';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../utils';
 
 export const epGetProjectRole = async (req: Request, res: Response) => {
 	const projectId = req.params.projectId;

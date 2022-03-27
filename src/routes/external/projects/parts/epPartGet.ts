@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../../utils';
 
 export const epPartGet = async (req: Request, res: Response) => {
 	const projectId = req.params.projectId;

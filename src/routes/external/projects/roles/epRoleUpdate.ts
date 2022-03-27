@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
 import { RoleUpdateReqDTO, RoleUpdateReqDTOSchema } from '../../../../dto';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../../utils';
 
 export const epRoleUpdate = async (req: Request, res: Response) => {
 	// Validation

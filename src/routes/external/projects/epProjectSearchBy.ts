@@ -1,9 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
-import { ProjectSearchByReqDTO, ProjectSearchByReqDTOSchema } from '../../../dto';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../utils';
 
 export const epProjectSearchBy = async (req: Request, res: Response) => {
 	// Validation

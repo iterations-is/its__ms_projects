@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import axios from 'axios';
 
 import { PartSaveReqDTO, PartSaveReqDTOSchema } from '../../../../dto';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../../utils';
 
 export const epPartCreate = async (req: Request, res: Response) => {
 	// Validation

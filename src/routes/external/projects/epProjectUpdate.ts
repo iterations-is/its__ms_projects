@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
 import { ProjectUpdateReqDTO, ProjectUpdateReqDTOSchema } from '../../../dto';
 import { omit } from 'lodash';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../utils';
 
 export const epProjectUpdate = async (req: Request, res: Response) => {
 	// Validation

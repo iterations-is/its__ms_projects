@@ -1,11 +1,6 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../../../../utils';
 
-const prisma = new PrismaClient();
-
-/**
- * Requires mwAuthorization
- */
 export const epTeamJoin = async (req: Request, res: Response) => {
 	const projectId = req.params.projectId;
 	const roleId = req.params.roleId;
