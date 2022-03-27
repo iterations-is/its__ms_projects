@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
-import { ProjectCreateReqDTO, ProjectCreateReqDTOSchema } from '../../../dto';
+import { ProjectCreateReqDTO, RoleDTO, ProjectCreateReqDTOSchema } from '../../../dto';
 import { prisma } from '../../../utils';
+import { omit } from 'lodash';
 
 export const epProjectCreate = async (req: Request, res: Response) => {
 	// Validation
@@ -15,7 +16,7 @@ export const epProjectCreate = async (req: Request, res: Response) => {
 	try {
 		const project = await prisma.project.create({
 			data: {
-				...projectCreateReq,
+				...omit(projectCreateReq, ['roles']),
 				deleted: false,
 				category: {
 					connect: {
@@ -24,6 +25,13 @@ export const epProjectCreate = async (req: Request, res: Response) => {
 				},
 			},
 		});
+
+		const customRoles = projectCreateReq.roles.map((role: RoleDTO) => ({
+			name: role.name,
+			projectId: project.id,
+			capacity: role.capacity,
+			editable: true,
+		}));
 
 		await prisma.projectRole.createMany({
 			data: [
@@ -39,6 +47,7 @@ export const epProjectCreate = async (req: Request, res: Response) => {
 					capacity: -1,
 					editable: false,
 				},
+				...customRoles,
 			],
 		});
 
