@@ -5,6 +5,8 @@ export const epProjectSearchSelf = async (req: Request, res: Response) => {
 	const userId = res.locals.userId;
 	const page = Math.floor(+req.query.page) || 1;
 	const pageSize = Math.floor(+req.query.pageSize) || 20;
+	const projectName: string = req.query.name as string;
+	const projectCategory: string = req.query.category as string;
 
 	// Logic
 	try {
@@ -19,6 +21,11 @@ export const epProjectSearchSelf = async (req: Request, res: Response) => {
 						},
 					},
 				},
+				name: {
+					contains: projectName,
+					mode: 'insensitive',
+				},
+				...(projectCategory ? { category: { id: projectCategory } } : {}),
 			},
 		});
 
@@ -35,6 +42,11 @@ export const epProjectSearchSelf = async (req: Request, res: Response) => {
 						},
 					},
 				},
+				name: {
+					contains: projectName,
+					mode: 'insensitive',
+				},
+				...(projectCategory ? { category: { id: projectCategory } } : {}),
 			},
 			select: {
 				id: true,

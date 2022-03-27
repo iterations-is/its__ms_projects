@@ -9,6 +9,8 @@ export const epProjectSearchBy = async (req: Request, res: Response) => {
 
 	const page = Math.floor(+req.query.page) || 1;
 	const pageSize = Math.floor(+req.query.pageSize) || 20;
+	const projectName: string = req.query.name as string;
+	const projectCategory: string = req.query.category as string;
 
 	// Logic
 	try {
@@ -16,6 +18,11 @@ export const epProjectSearchBy = async (req: Request, res: Response) => {
 			where: {
 				deleted: false,
 				searchable: true,
+				name: {
+					contains: projectName,
+					mode: 'insensitive',
+				},
+				...(projectCategory ? { category: { id: projectCategory } } : {}),
 			},
 		});
 
@@ -25,6 +32,11 @@ export const epProjectSearchBy = async (req: Request, res: Response) => {
 			where: {
 				deleted: false,
 				searchable: true,
+				name: {
+					contains: projectName,
+					mode: 'insensitive',
+				},
+				...(projectCategory ? { category: { id: projectCategory } } : {}),
 			},
 			select: {
 				id: true,
