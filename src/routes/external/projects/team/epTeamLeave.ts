@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../../../../utils';
+import { MessageDTO } from '@its/ms';
 
 export const epTeamLeave = async (req: Request, res: Response) => {
 	const projectId = req.params.projectId;
@@ -12,7 +13,31 @@ export const epTeamLeave = async (req: Request, res: Response) => {
 			select: { id: true },
 		});
 
-		// FIXME: cannot leave, if last leader
+		// if user is last leader
+		const leadersCount = await prisma.projectRoleAssignment.count({
+			where: {
+				role: {
+					name: 'Leader',
+					project: { id: projectId },
+				},
+			},
+		});
+
+		const isLeader = await prisma.projectRoleAssignment.findFirst({
+			where: {
+				userId,
+				role: {
+					name: 'Leader',
+					project: { id: projectId },
+				},
+			},
+		});
+
+		if (isLeader && leadersCount === 1)
+			return res.status(400).json({
+				message: 'You are the last leader of this project. You cannot leave the project.',
+				code: 'LAST_LEADER',
+			} as MessageDTO);
 
 		await prisma.projectRoleAssignment.deleteMany({
 			where: {
