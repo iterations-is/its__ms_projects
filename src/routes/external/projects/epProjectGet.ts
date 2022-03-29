@@ -22,6 +22,7 @@ export const epProjectGet = async (req: Request, res: Response) => {
 				createdAt: true,
 				category: {
 					select: {
+						id: true,
 						name: true,
 					},
 				},
