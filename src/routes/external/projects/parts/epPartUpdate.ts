@@ -20,7 +20,7 @@ export const epPartUpdate = async (req: Request, res: Response) => {
 
 	// Logic
 	try {
-		const part = await prisma.projectPart.update({
+		await prisma.projectPart.update({
 			where: {
 				id: partId,
 			},

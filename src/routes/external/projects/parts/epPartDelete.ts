@@ -6,7 +6,7 @@ export const epPartDelete = async (req: Request, res: Response) => {
 
 	// Logic
 	try {
-		const part = await prisma.projectPart.delete({
+		await prisma.projectPart.delete({
 			where: {
 				id: partId,
 			},

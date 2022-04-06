@@ -6,7 +6,7 @@ export const epRoleDelete = async (req: Request, res: Response) => {
 
 	// Logic
 	try {
-		const role = await prisma.projectRole.delete({
+		await prisma.projectRole.delete({
 			where: {
 				id: roleId,
 			},
