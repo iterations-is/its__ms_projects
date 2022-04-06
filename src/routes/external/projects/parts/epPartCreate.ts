@@ -34,7 +34,7 @@ export const epPartCreate = async (req: Request, res: Response) => {
 		const base64Data = new Buffer(data).toString('base64');
 
 		const response = await axios.put(
-			`https://api.github.com/repos/iterations-is-projects/${projectId}/contents/${part.id}`,
+			`https://api.github.com/repos/${process.env.GITHUB_ORGANIZATION_NAME}/${projectId}/contents/${part.id}`,
 			{
 				message: `created by ${userId}`,
 				content: base64Data,

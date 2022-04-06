@@ -69,7 +69,7 @@ export const epProjectCreate = async (req: Request, res: Response) => {
 		});
 
 		const detailsRepo = await axios.post(
-			'https://api.github.com/orgs/iterations-is-projects/repos',
+			`https://api.github.com/orgs/${process.env.GITHUB_ORGANIZATION_NAME}/repos`,
 			{
 				name: project.id,
 				private: true,

@@ -33,7 +33,7 @@ export const epPartUpdate = async (req: Request, res: Response) => {
 		const base64Data = new Buffer(data).toString('base64');
 
 		const response = await axios.put(
-			`https://api.github.com/repos/iterations-is-projects/${projectId}/contents/${partId}`,
+			`https://api.github.com/repos/${process.env.GITHUB_ORGANIZATION_NAME}/${projectId}/contents/${partId}`,
 			{
 				message: `updated by ${userId}`,
 				content: base64Data,

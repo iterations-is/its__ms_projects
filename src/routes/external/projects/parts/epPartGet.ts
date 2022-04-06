@@ -15,7 +15,7 @@ export const epPartGet = async (req: Request, res: Response) => {
 		});
 
 		const response = await axios.get(
-			`https://api.github.com/repos/iterations-is-projects/${projectId}/contents/${partId}`,
+			`https://api.github.com/repos/${process.env.GITHUB_ORGANIZATION_NAME}/${projectId}/contents/${partId}`,
 			{
 				headers: {
 					Accept: 'application/vnd.github.v3+json',
