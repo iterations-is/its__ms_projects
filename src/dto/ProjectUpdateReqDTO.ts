@@ -12,12 +12,12 @@ export interface ProjectUpdateReqDTO {
 }
 
 export const ProjectUpdateReqDTOSchema: Joi.ObjectSchema = Joi.object({
-	name: Joi.string().min(3).required(),
-	category: Joi.string().required(),
-	descriptionPublic: Joi.string().allow('').required(),
-	descriptionPrivate: Joi.string().allow('').required(),
-	joinable: Joi.bool().required(),
-	archived: Joi.bool().required(),
-	searchable: Joi.bool().required(),
-	public: Joi.bool().required(),
+	name: Joi.string().min(3),
+	category: Joi.string(),
+	descriptionPublic: Joi.string().allow(''),
+	descriptionPrivate: Joi.string().allow(''),
+	joinable: Joi.bool(),
+	archived: Joi.bool(),
+	searchable: Joi.bool(),
+	public: Joi.bool(),
 });

@@ -26,7 +26,9 @@ export const epProjectCreate = async (req: Request, res: Response) => {
 			},
 		});
 
-		const customRoles = projectCreateReq.roles.map((role: RoleDTO) => ({
+		const requestedRoles = projectCreateReq.roles ?? [];
+
+		const customRoles = requestedRoles.map((role: RoleDTO) => ({
 			name: role.name,
 			projectId: project.id,
 			capacity: role.capacity,

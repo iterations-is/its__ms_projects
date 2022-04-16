@@ -14,6 +14,8 @@ export const epPartGet = async (req: Request, res: Response) => {
 			},
 		});
 
+		if (part === null) return res.status(404).json({ message: 'Part not found' });
+
 		const response = await axios.get(
 			`https://api.github.com/repos/${process.env.GITHUB_ORGANIZATION_NAME}/${projectId}/contents/${partId}`,
 			{

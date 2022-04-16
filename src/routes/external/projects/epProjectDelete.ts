@@ -11,6 +11,8 @@ export const epProjectDelete = async (req: Request, res: Response) => {
 				id: projectId,
 			},
 			data: {
+				archived: true,
+				searchable: false,
 				deleted: true,
 			},
 		});

@@ -32,7 +32,7 @@ export const epProjectUpdate = async (req: Request, res: Response) => {
 			},
 		});
 
-		return res.status(200).json({ message: '' });
+		return res.status(200).json({ message: 'project updated' });
 	} catch (error) {
 		return res.status(500).json({ message: 'internal server error', payload: error });
 	}

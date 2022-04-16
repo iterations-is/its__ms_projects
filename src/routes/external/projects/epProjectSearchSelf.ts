@@ -12,6 +12,7 @@ export const epProjectSearchSelf = async (req: Request, res: Response) => {
 	try {
 		const projectsTotal = await prisma.project.count({
 			where: {
+				deleted: false,
 				projectRoles: {
 					some: {
 						projectRoleAssignments: {
@@ -33,6 +34,7 @@ export const epProjectSearchSelf = async (req: Request, res: Response) => {
 			skip: (page - 1) * pageSize,
 			take: pageSize,
 			where: {
+				deleted: false,
 				projectRoles: {
 					some: {
 						projectRoleAssignments: {
